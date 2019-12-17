@@ -1,42 +1,24 @@
-package com.evrenvural.todo.domain;
+package com.evrenvural.todo.dto;
 
-import javax.persistence.*;
-import java.util.Date;
-
-@Entity
-public class Todo {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false)
-    private Long id;
+public class TodoDTO {
 
     private String title;
 
     private String description;
 
-    private String important;
+    private String importantValue;
 
     private Long date;
 
-    public Todo(Long id, String title, String description, String importantValue, Long date) {
-        this.id = id;
+    public TodoDTO(String title, String description, String importantValue, Long date) {
         this.title = title;
         this.description = description;
-        this.important = importantValue;
+        this.importantValue = importantValue;
         this.date = date;
     }
 
-    public Todo(){
+    public TodoDTO(){
 
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -56,11 +38,11 @@ public class Todo {
     }
 
     public String getImportantValue() {
-        return important;
+        return importantValue;
     }
 
     public void setImportantValue(String importantValue) {
-        this.important = importantValue;
+        this.importantValue = importantValue;
     }
 
     public Long getDate() {

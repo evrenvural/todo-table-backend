@@ -1,21 +1,27 @@
 package com.evrenvural.todo.resource;
 
 import com.evrenvural.todo.domain.Todo;
+import com.evrenvural.todo.dto.TodoDTO;
 import com.evrenvural.todo.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/todos")
+@RequestMapping("/todo")
 public class TodoController {
 
     @Autowired
     TodoService todoService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/all")
-    public Iterable<Todo> getAllTodos(){ return todoService.getAll(); }
+    public Iterable<TodoDTO> getAllTodos(){ return todoService.getAll(); }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/add")
+    public void addTodo(@RequestBody TodoDTO todoDTO){
+        todoService.addTodo(todoDTO);
+    }
 }
