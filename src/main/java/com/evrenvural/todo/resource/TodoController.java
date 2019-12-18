@@ -28,4 +28,8 @@ public class TodoController {
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}/delete")
     public void deleteTodo(@PathVariable Long id){ todoService.deleteTodo(id); }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/{id}/update")
+    public void updateTodo(@PathVariable Long id, @RequestBody TodoDTO todoDTO){ todoService.updateTodo(id, todoDTO); }
 }

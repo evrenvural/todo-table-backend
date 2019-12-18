@@ -25,7 +25,6 @@ public class TodoService {
 
         List<TodoDTO> todosDTO = new ArrayList<TodoDTO>();
 
-
         // converting
         for (Todo item: todos) {
             todosDTO.add(modelMapper.map(item, TodoDTO.class));
@@ -46,4 +45,12 @@ public class TodoService {
         todoRepository.deleteById(id);
     }
 
+    public void updateTodo(Long id, TodoDTO todoDTO){
+        todoRepository.deleteById(id);
+
+        // converting
+        Todo updatedTodo = modelMapper.map(todoDTO, Todo.class);
+
+        todoRepository.save(updatedTodo);
+    }
 }
