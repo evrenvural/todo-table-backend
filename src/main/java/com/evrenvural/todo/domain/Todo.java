@@ -17,6 +17,8 @@ public class Todo {
 
     private String important;
 
+    private String status;
+
     private Long date;
 
     public Todo(Long id, String title, String description, String importantValue, Long date) {
@@ -61,6 +63,14 @@ public class Todo {
 
     public void setImportantValue(String importantValue) {
         this.important = importantValue;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getDate() {

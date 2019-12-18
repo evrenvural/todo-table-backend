@@ -38,6 +38,8 @@ public class TodoService {
         // converting
         Todo todo =  modelMapper.map(todoDTO, Todo.class);
 
+        todo.setStatus("Todo");
+
         todoRepository.save(todo);
     }
 
@@ -46,11 +48,41 @@ public class TodoService {
     }
 
     public void updateTodo(Long id, TodoDTO todoDTO){
+        Todo todoFromRepository = todoRepository.getOne(id);
+
         todoRepository.deleteById(id);
 
         // converting
         Todo updatedTodo = modelMapper.map(todoDTO, Todo.class);
 
+        updatedTodo.setStatus(todoFromRepository.getStatus());
+
         todoRepository.save(updatedTodo);
+    }
+
+    public void changeStatusNext(Long id){
+        Todo todo = todoRepository.getOne(id);
+
+        if (todo.getStatus().equals("Todo")){
+            todo.setStatus("InProgress");
+        }
+        else if(todo.getStatus().equals("InProgress")){
+            todo.setStatus(("Done"));
+        }
+
+        todoRepository.save(todo);
+    }
+
+    public void changeStatusPrev(Long id){
+        Todo todo = todoRepository.getOne(id);
+
+        if (todo.getStatus().equals("Done")){
+            todo.setStatus("InProgress");
+        }
+        else if(todo.getStatus().equals("InProgress")){
+            todo.setStatus(("Todo"));
+        }
+
+        todoRepository.save(todo);
     }
 }

@@ -32,4 +32,12 @@ public class TodoController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}/update")
     public void updateTodo(@PathVariable Long id, @RequestBody TodoDTO todoDTO){ todoService.updateTodo(id, todoDTO); }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/{id}/changeStatusNext")
+    public void changeStatusNext(@PathVariable Long id){ todoService.changeStatusNext(id); }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/{id}/changeStatusPrev")
+    public void changeStatusPrev(@PathVariable Long id){ todoService.changeStatusPrev(id); }
 }

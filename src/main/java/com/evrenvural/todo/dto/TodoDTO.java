@@ -10,13 +10,16 @@ public class TodoDTO {
 
     private String importantValue;
 
+    private String status;
+
     private Long date;
 
-    public TodoDTO(Long id,String title, String description, String importantValue, Long date) {
+    public TodoDTO(Long id, String title, String description, String importantValue, String status, Long date) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.importantValue = importantValue;
+        this.status = status;
         this.date = date;
     }
 
@@ -50,6 +53,14 @@ public class TodoDTO {
 
     public void setImportantValue(String importantValue) {
         this.importantValue = importantValue;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getDate() {
