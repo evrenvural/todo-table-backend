@@ -33,34 +33,42 @@ public class TodoService {
         return todosDTO;
     }
 
-    public void addTodo(TodoDTO todoDTO){
+    public TodoDTO get(Long id){
+        Todo todo = todoRepository.getOne(id);
 
-        // converting
+        return  modelMapper.map(todo, TodoDTO.class);
+    }
+
+    public TodoDTO addTodo(TodoDTO todoDTO){
+
+        // converting to todo
         Todo todo =  modelMapper.map(todoDTO, Todo.class);
 
         todo.setStatus("Todo");
 
-        todoRepository.save(todo);
+        Todo todoFromRepo = todoRepository.save(todo);
+
+        return modelMapper.map(todoFromRepo, TodoDTO.class);
     }
 
     public void deleteTodo(Long id){
         todoRepository.deleteById(id);
     }
 
-    public void updateTodo(Long id, TodoDTO todoDTO){
-        Todo todoFromRepository = todoRepository.getOne(id);
+    public TodoDTO updateTodo(Long id, TodoDTO todoDTO){
+        Todo todoFromRepo = todoRepository.getOne(id);
 
-        todoRepository.deleteById(id);
+        todoFromRepo.setTitle(todoDTO.getTitle());
+        todoFromRepo.setDescription(todoDTO.getDescription());
+        todoFromRepo.setImportantValue(todoDTO.getImportantValue());
+        todoFromRepo.setDate(todoDTO.getDate());
 
-        // converting
-        Todo updatedTodo = modelMapper.map(todoDTO, Todo.class);
+        Todo updatedTodo = todoRepository.save(todoFromRepo);
 
-        updatedTodo.setStatus(todoFromRepository.getStatus());
-
-        todoRepository.save(updatedTodo);
+        return modelMapper.map(updatedTodo, TodoDTO.class);
     }
 
-    public void changeStatusNext(Long id){
+    public TodoDTO changeStatusNext(Long id){
         Todo todo = todoRepository.getOne(id);
 
         if (todo.getStatus().equals("Todo")){
@@ -70,10 +78,12 @@ public class TodoService {
             todo.setStatus(("Done"));
         }
 
-        todoRepository.save(todo);
+        Todo updatedTodo = todoRepository.save(todo);
+
+        return modelMapper.map(updatedTodo, TodoDTO.class);
     }
 
-    public void changeStatusPrev(Long id){
+    public TodoDTO changeStatusPrev(Long id){
         Todo todo = todoRepository.getOne(id);
 
         if (todo.getStatus().equals("Done")){
@@ -83,6 +93,8 @@ public class TodoService {
             todo.setStatus(("Todo"));
         }
 
-        todoRepository.save(todo);
+        Todo updatedTodo = todoRepository.save(todo);
+
+        return modelMapper.map(updatedTodo, TodoDTO.class);
     }
 }
